@@ -29,7 +29,7 @@ jobs:
       - name: Create Custom Dockerfile on the fly
         run: |
           cat << 'EOF' > Dockerfile
-          FROM awesomatix/synapse-admin:latest
+          FROM awesometechnologies/synapse-admin:latest
           # Bake the custom port into the Nginx config permanently
           RUN sed -i 's/listen[[:space:]]*80;/listen 8081;/g' /etc/nginx/conf.d/default.conf
           EXPOSE 8081

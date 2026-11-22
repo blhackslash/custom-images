@@ -1,0 +1,11 @@
+[
+  { "name": "caddy-custom",         "tag": "latest" },
+  { "name": "custom-code",          "tag": "latest" },
+  { "name": "fail2ban-custom",      "tag": "latest" },
+  { "name": "media-converter",      "tag": "cpu",    "build_args": "HW_TYPE=cpu" },
+  { "name": "media-converter",      "tag": "intel",  "build_args": "HW_TYPE=intel" },
+  { "name": "media-converter",      "tag": "amd",    "build_args": "HW_TYPE=amd" },
+  { "name": "media-converter",      "tag": "latest", "build_args": "HW_TYPE=latest" },
+  { "name": "nextcloud-custom",     "tag": "latest" },
+  { "name": "synapse-admin-custom", "tag": "latest" }
+]

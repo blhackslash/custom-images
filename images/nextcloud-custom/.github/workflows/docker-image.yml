@@ -5,6 +5,10 @@ on:
   schedule:
     - cron: '0 0 * * 0'
   workflow_dispatch:    # Adds a "Run workflow" button to the UI
+  push:                 # Rebuild as soon as the Dockerfile changes on main
+    branches: [main]
+    paths: [Dockerfile]
+  pull_request:         # Build (but don't push) PRs so changes are verified first
 
 jobs:
   build:
@@ -20,6 +24,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Log in to the Container registry
+        if: github.event_name != 'pull_request'
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
@@ -30,6 +35,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: true
+          push: ${{ github.event_name != 'pull_request' }}
           # REPLACE the placeholder below! Must be strictly lowercase.
           tags: ghcr.io/blhackslash/nextcloud-custom:latest

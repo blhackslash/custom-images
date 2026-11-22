@@ -98,6 +98,8 @@ jobs:
 
       # Moving tag (latest / cpu / intel / ...) plus a dated one, so a bad
       # weekly rebuild can be rolled back by pinning e.g. :2026-11-22.
+      # (In Actions `cond && '' || x` always yields x because '' is falsy,
+      # hence the inverted condition.)
       - id: meta
         uses: docker/metadata-action@v6
         with:
@@ -105,7 +107,7 @@ jobs:
           flavor: latest=false
           tags: |
             type=raw,value=${{ matrix.tag }}
-            type=raw,value=${{ matrix.tag == 'latest' && '' || format('{0}-', matrix.tag) }}{{date 'YYYY-MM-DD'}}
+            type=raw,value=${{ matrix.tag != 'latest' && format('{0}-', matrix.tag) || '' }}{{date 'YYYY-MM-DD'}}
           labels: |
             org.opencontainers.image.title=${{ matrix.name }}
 
